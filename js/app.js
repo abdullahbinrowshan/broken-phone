@@ -1,4 +1,4 @@
-const loadPhones = async(searchText, dataLimit) =>{
+const loadPhones = async(searchText, dataLimit = 10) =>{
     const url = `https://openapi.programming-hero.com/api/phones?search=${searchText}`
     const res = await fetch(url);
     const data = await res.json();
@@ -56,7 +56,7 @@ const processSearch = (dataLimit) =>{
 }
 
 // handle search button click
-document.getElementById('#btn-search').addEventListener('click', function(){
+document.getElementById('btn-search').addEventListener('click', function(){
     // start loader
     processSearch(10);
 })
