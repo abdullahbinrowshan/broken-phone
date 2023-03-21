@@ -7,7 +7,7 @@ const loadPhones = async(searchText, dataLimit = 10) =>{
 
 const displayPhones = (phones, dataLimit) =>{
     const phonesContainer = document.getElementById('phones-container');
-    // phonesContainer.textContent = '';
+    phonesContainer.textContent = '';
     // display 10 phones only 
     const showAll = document.getElementById('show-all');
     if(dataLimit && phones.length > 10) {
@@ -15,7 +15,7 @@ const displayPhones = (phones, dataLimit) =>{
         showAll.classList.remove('d-none');
     }
     else{
-        showAll.classList.add('d-hidden');
+        showAll.classList.add('d-none');
     }
     
 
@@ -29,11 +29,12 @@ const displayPhones = (phones, dataLimit) =>{
     }
     // display all phones
     phones.forEach(phone =>{
+        console.log(phone);
         const phoneDiv  = document.createElement('div');
         phoneDiv.classList.add('col');
-        phonesContainer.innerHTML = `
+        phonesContainer.innerHTML += `
         <div class="card p-4">
-            <img src="${phone.images}" class="card-img-top" alt="...">
+            <img src="${phone.image}" class="card-img-top" alt="...">
             <div class="card-body">
                 <h5 class="card-title">${phone.phone_name}</h5>
                 <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
@@ -52,6 +53,7 @@ const processSearch = (dataLimit) =>{
     toggleSpinner(true);
     const searchField = document.getElementById('search-field');
     const searchText = searchField.value;
+    searchField.value = '';
     loadPhones(searchText, dataLimit);
 }
 
@@ -63,7 +65,7 @@ document.getElementById('btn-search').addEventListener('click', function(){
 
 // search input field enter key handler
 document.getElementById('search-field').addEventListener('keypress', function (e) {
-    if (e.key === 'enter') {
+    if (e.key === 'Enter') {
         processSearch(10);
     }
 });
@@ -71,10 +73,10 @@ document.getElementById('search-field').addEventListener('keypress', function (e
 const toggleSpinner = isLoading => {
     const loaderSection = document.getElementById('loader');
     if(!isLoading){
-        loaderSection.classList.remove('d-none')
+        loaderSection.classList.add('d-none');
     }
     else{
-        loaderSection.classList.add('d-none');
+        loaderSection.classList.remove('d-none')
     }
 }
 
